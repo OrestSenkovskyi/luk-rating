@@ -35,7 +35,7 @@ TEAM_MAPPING = {
     "seꑭes": ["senes"],
     "Манія Величі": ["Мания Величия"],
     "Злобні Урук-хай": ["Злобні урукхаї", "Злобные Урук-хай"],
-    "Харківська весільна слононіжка": ["Харківська Весільна Слононіжка", "Слононіжка"],
+    "Харківська весільна слононіжка": ["Харківська Весільна Слононіжка", "Слононіжка", "весільна слононіжка"],
     "Яка вам різниця?": ["Яка Вам Різниця", "Яка Вам Різниця?"],
     "Гря хм гагага": ["гря хм гагага"],
     "В'язні міста ІФ": ["В'язні міста Іф"],
@@ -56,6 +56,7 @@ TEAM_MAPPING = {
     "Алкобоги": ["Алокбоги"],
     "Lorem City": ["Lorem Ipsum"],
     "Легіон": ["Андрюша (Легіон)"],
+    "ЩДКоти": ["Комети (ЩДКоти)"],
 }
 
 EXCLUDED_TEAMS = [
@@ -178,6 +179,16 @@ def game8():
         yield name, score
 
 
+def game9():
+    workbook = openpyxl.load_workbook("raw/Літній Мажор результати.xlsx")
+    sheet = workbook.active
+    for row in sheet.iter_rows(min_row=2, values_only=True):
+        name = row[0]
+        score = row[8]
+
+        yield name, score
+
+
 GAMES = {
     "Гра 1": {"loader": game1, "weight": 1},
     "Гра 2": {"loader": game2, "weight": 1},
@@ -187,6 +198,7 @@ GAMES = {
     "Гра 6": {"loader": game6, "weight": 2},
     "Гра 7": {"loader": game7, "weight": 1},
     "Гра 8": {"loader": game8, "weight": 1},
+    "Гра 9": {"loader": game9, "weight": 2},
 }
 
 
