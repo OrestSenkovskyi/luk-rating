@@ -35,7 +35,7 @@ TEAM_MAPPING = {
     "seꑭes": ["senes"],
     "Манія Величі": ["Мания Величия"],
     "Злобні Урук-хай": ["Злобні урукхаї", "Злобные Урук-хай"],
-    "Харківська весільна слононіжка": ["Харківська Весільна Слононіжка", "Слононіжка", "весільна слононіжка"],
+    "Харківська весільна слононіжка": ["Харківська Весільна Слононіжка", "Слононіжка", "весільна слононіжка", "Весільна слононіжка"],
     "Яка вам різниця?": ["Яка Вам Різниця", "Яка Вам Різниця?"],
     "Гря хм гагага": ["гря хм гагага"],
     "В'язні міста ІФ": ["В'язні міста Іф"],
@@ -57,6 +57,7 @@ TEAM_MAPPING = {
     "Lorem City": ["Lorem Ipsum"],
     "Легіон": ["Андрюша (Легіон)"],
     "ЩДКоти": ["Комети (ЩДКоти)"],
+    "Одиночество в SETI": ["Одиночество в SETI (м. Одеса)"],
 }
 
 EXCLUDED_TEAMS = [
@@ -150,11 +151,7 @@ def game6():
     sheet = workbook.active
     for row in sheet.iter_rows(min_row=2, values_only=True):
         name = row[0]
-        tiebreak = row[7]
-        score = row[8]
-
-        if tiebreak is not None:
-            score += tiebreak
+        score = row[7]
 
         yield name, score
 
@@ -189,6 +186,29 @@ def game9():
         yield name, score
 
 
+def game10():
+    workbook = openpyxl.load_workbook("raw/ССМП-3 - Результати в рейтинг.xlsx")
+    sheet = workbook.active
+    for row in sheet.iter_rows(min_row=2, values_only=True):
+        name = row[0]
+        score = row[1]
+
+        yield name, score
+
+
+def game11():
+    workbook = openpyxl.load_workbook("raw/Канхвєта - Результати в рейтинг.xlsx")
+    sheet = workbook.active
+    for row in sheet.iter_rows(min_row=2, values_only=True):
+        name = row[0]
+        score = row[1]
+
+        if name is None:
+            continue
+
+        yield name, score
+
+
 GAMES = {
     "Гра 1": {"loader": game1, "weight": 1},
     "Гра 2": {"loader": game2, "weight": 1},
@@ -199,6 +219,8 @@ GAMES = {
     "Гра 7": {"loader": game7, "weight": 1},
     "Гра 8": {"loader": game8, "weight": 1},
     "Гра 9": {"loader": game9, "weight": 2},
+    "Гра 10": {"loader": game10, "weight": 1},
+    "Гра 11": {"loader": game11, "weight": 1},
 }
 
 
